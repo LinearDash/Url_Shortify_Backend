@@ -19,4 +19,17 @@ model Url {
   shortCode  String   @unique
 
   createdAt  DateTime @default(now())
+  clickLogs     Click[]
+}
+
+model Click {
+  id        String   @id @default(cuid())
+  url       Url      @relation(fields: [urlId], references: [id])
+  urlId     String
+
+  ip  String
+  userAgent String
+  conuntry   String
+
+  clickedAt DateTime @default(now())
 }
