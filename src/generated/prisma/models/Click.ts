@@ -29,7 +29,7 @@ export type ClickMinAggregateOutputType = {
   urlId: string | null
   ip: string | null
   userAgent: string | null
-  conuntry: string | null
+  country: string | null
   clickedAt: Date | null
 }
 
@@ -38,7 +38,7 @@ export type ClickMaxAggregateOutputType = {
   urlId: string | null
   ip: string | null
   userAgent: string | null
-  conuntry: string | null
+  country: string | null
   clickedAt: Date | null
 }
 
@@ -47,7 +47,7 @@ export type ClickCountAggregateOutputType = {
   urlId: number
   ip: number
   userAgent: number
-  conuntry: number
+  country: number
   clickedAt: number
   _all: number
 }
@@ -58,7 +58,7 @@ export type ClickMinAggregateInputType = {
   urlId?: true
   ip?: true
   userAgent?: true
-  conuntry?: true
+  country?: true
   clickedAt?: true
 }
 
@@ -67,7 +67,7 @@ export type ClickMaxAggregateInputType = {
   urlId?: true
   ip?: true
   userAgent?: true
-  conuntry?: true
+  country?: true
   clickedAt?: true
 }
 
@@ -76,7 +76,7 @@ export type ClickCountAggregateInputType = {
   urlId?: true
   ip?: true
   userAgent?: true
-  conuntry?: true
+  country?: true
   clickedAt?: true
   _all?: true
 }
@@ -157,8 +157,8 @@ export type ClickGroupByOutputType = {
   id: string
   urlId: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent: string | null
+  country: string | null
   clickedAt: Date
   _count: ClickCountAggregateOutputType | null
   _min: ClickMinAggregateOutputType | null
@@ -187,8 +187,8 @@ export type ClickWhereInput = {
   id?: Prisma.StringFilter<"Click"> | string
   urlId?: Prisma.StringFilter<"Click"> | string
   ip?: Prisma.StringFilter<"Click"> | string
-  userAgent?: Prisma.StringFilter<"Click"> | string
-  conuntry?: Prisma.StringFilter<"Click"> | string
+  userAgent?: Prisma.StringNullableFilter<"Click"> | string | null
+  country?: Prisma.StringNullableFilter<"Click"> | string | null
   clickedAt?: Prisma.DateTimeFilter<"Click"> | Date | string
   url?: Prisma.XOR<Prisma.UrlScalarRelationFilter, Prisma.UrlWhereInput>
 }
@@ -197,8 +197,8 @@ export type ClickOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   urlId?: Prisma.SortOrder
   ip?: Prisma.SortOrder
-  userAgent?: Prisma.SortOrder
-  conuntry?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   clickedAt?: Prisma.SortOrder
   url?: Prisma.UrlOrderByWithRelationInput
 }
@@ -210,8 +210,8 @@ export type ClickWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ClickWhereInput | Prisma.ClickWhereInput[]
   urlId?: Prisma.StringFilter<"Click"> | string
   ip?: Prisma.StringFilter<"Click"> | string
-  userAgent?: Prisma.StringFilter<"Click"> | string
-  conuntry?: Prisma.StringFilter<"Click"> | string
+  userAgent?: Prisma.StringNullableFilter<"Click"> | string | null
+  country?: Prisma.StringNullableFilter<"Click"> | string | null
   clickedAt?: Prisma.DateTimeFilter<"Click"> | Date | string
   url?: Prisma.XOR<Prisma.UrlScalarRelationFilter, Prisma.UrlWhereInput>
 }, "id">
@@ -220,8 +220,8 @@ export type ClickOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   urlId?: Prisma.SortOrder
   ip?: Prisma.SortOrder
-  userAgent?: Prisma.SortOrder
-  conuntry?: Prisma.SortOrder
+  userAgent?: Prisma.SortOrderInput | Prisma.SortOrder
+  country?: Prisma.SortOrderInput | Prisma.SortOrder
   clickedAt?: Prisma.SortOrder
   _count?: Prisma.ClickCountOrderByAggregateInput
   _max?: Prisma.ClickMaxOrderByAggregateInput
@@ -235,16 +235,16 @@ export type ClickScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Click"> | string
   urlId?: Prisma.StringWithAggregatesFilter<"Click"> | string
   ip?: Prisma.StringWithAggregatesFilter<"Click"> | string
-  userAgent?: Prisma.StringWithAggregatesFilter<"Click"> | string
-  conuntry?: Prisma.StringWithAggregatesFilter<"Click"> | string
+  userAgent?: Prisma.StringNullableWithAggregatesFilter<"Click"> | string | null
+  country?: Prisma.StringNullableWithAggregatesFilter<"Click"> | string | null
   clickedAt?: Prisma.DateTimeWithAggregatesFilter<"Click"> | Date | string
 }
 
 export type ClickCreateInput = {
   id?: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent?: string | null
+  country?: string | null
   clickedAt?: Date | string
   url: Prisma.UrlCreateNestedOneWithoutClickLogsInput
 }
@@ -253,16 +253,16 @@ export type ClickUncheckedCreateInput = {
   id?: string
   urlId: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent?: string | null
+  country?: string | null
   clickedAt?: Date | string
 }
 
 export type ClickUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   url?: Prisma.UrlUpdateOneRequiredWithoutClickLogsNestedInput
 }
@@ -271,8 +271,8 @@ export type ClickUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   urlId?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -280,16 +280,16 @@ export type ClickCreateManyInput = {
   id?: string
   urlId: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent?: string | null
+  country?: string | null
   clickedAt?: Date | string
 }
 
 export type ClickUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -297,8 +297,8 @@ export type ClickUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   urlId?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -317,7 +317,7 @@ export type ClickCountOrderByAggregateInput = {
   urlId?: Prisma.SortOrder
   ip?: Prisma.SortOrder
   userAgent?: Prisma.SortOrder
-  conuntry?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   clickedAt?: Prisma.SortOrder
 }
 
@@ -326,7 +326,7 @@ export type ClickMaxOrderByAggregateInput = {
   urlId?: Prisma.SortOrder
   ip?: Prisma.SortOrder
   userAgent?: Prisma.SortOrder
-  conuntry?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   clickedAt?: Prisma.SortOrder
 }
 
@@ -335,7 +335,7 @@ export type ClickMinOrderByAggregateInput = {
   urlId?: Prisma.SortOrder
   ip?: Prisma.SortOrder
   userAgent?: Prisma.SortOrder
-  conuntry?: Prisma.SortOrder
+  country?: Prisma.SortOrder
   clickedAt?: Prisma.SortOrder
 }
 
@@ -381,19 +381,23 @@ export type ClickUncheckedUpdateManyWithoutUrlNestedInput = {
   deleteMany?: Prisma.ClickScalarWhereInput | Prisma.ClickScalarWhereInput[]
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type ClickCreateWithoutUrlInput = {
   id?: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent?: string | null
+  country?: string | null
   clickedAt?: Date | string
 }
 
 export type ClickUncheckedCreateWithoutUrlInput = {
   id?: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent?: string | null
+  country?: string | null
   clickedAt?: Date | string
 }
 
@@ -430,40 +434,40 @@ export type ClickScalarWhereInput = {
   id?: Prisma.StringFilter<"Click"> | string
   urlId?: Prisma.StringFilter<"Click"> | string
   ip?: Prisma.StringFilter<"Click"> | string
-  userAgent?: Prisma.StringFilter<"Click"> | string
-  conuntry?: Prisma.StringFilter<"Click"> | string
+  userAgent?: Prisma.StringNullableFilter<"Click"> | string | null
+  country?: Prisma.StringNullableFilter<"Click"> | string | null
   clickedAt?: Prisma.DateTimeFilter<"Click"> | Date | string
 }
 
 export type ClickCreateManyUrlInput = {
   id?: string
   ip: string
-  userAgent: string
-  conuntry: string
+  userAgent?: string | null
+  country?: string | null
   clickedAt?: Date | string
 }
 
 export type ClickUpdateWithoutUrlInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClickUncheckedUpdateWithoutUrlInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClickUncheckedUpdateManyWithoutUrlInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   ip?: Prisma.StringFieldUpdateOperationsInput | string
-  userAgent?: Prisma.StringFieldUpdateOperationsInput | string
-  conuntry?: Prisma.StringFieldUpdateOperationsInput | string
+  userAgent?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  country?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   clickedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -474,7 +478,7 @@ export type ClickSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   urlId?: boolean
   ip?: boolean
   userAgent?: boolean
-  conuntry?: boolean
+  country?: boolean
   clickedAt?: boolean
   url?: boolean | Prisma.UrlDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["click"]>
@@ -484,7 +488,7 @@ export type ClickSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   urlId?: boolean
   ip?: boolean
   userAgent?: boolean
-  conuntry?: boolean
+  country?: boolean
   clickedAt?: boolean
   url?: boolean | Prisma.UrlDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["click"]>
@@ -494,7 +498,7 @@ export type ClickSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   urlId?: boolean
   ip?: boolean
   userAgent?: boolean
-  conuntry?: boolean
+  country?: boolean
   clickedAt?: boolean
   url?: boolean | Prisma.UrlDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["click"]>
@@ -504,11 +508,11 @@ export type ClickSelectScalar = {
   urlId?: boolean
   ip?: boolean
   userAgent?: boolean
-  conuntry?: boolean
+  country?: boolean
   clickedAt?: boolean
 }
 
-export type ClickOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "urlId" | "ip" | "userAgent" | "conuntry" | "clickedAt", ExtArgs["result"]["click"]>
+export type ClickOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "urlId" | "ip" | "userAgent" | "country" | "clickedAt", ExtArgs["result"]["click"]>
 export type ClickInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   url?: boolean | Prisma.UrlDefaultArgs<ExtArgs>
 }
@@ -528,8 +532,8 @@ export type $ClickPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     urlId: string
     ip: string
-    userAgent: string
-    conuntry: string
+    userAgent: string | null
+    country: string | null
     clickedAt: Date
   }, ExtArgs["result"]["click"]>
   composites: {}
@@ -959,7 +963,7 @@ export interface ClickFieldRefs {
   readonly urlId: Prisma.FieldRef<"Click", 'String'>
   readonly ip: Prisma.FieldRef<"Click", 'String'>
   readonly userAgent: Prisma.FieldRef<"Click", 'String'>
-  readonly conuntry: Prisma.FieldRef<"Click", 'String'>
+  readonly country: Prisma.FieldRef<"Click", 'String'>
   readonly clickedAt: Prisma.FieldRef<"Click", 'DateTime'>
 }
     

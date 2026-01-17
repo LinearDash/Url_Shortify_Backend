@@ -28,8 +28,8 @@ model Click {
   urlId     String
 
   ip  String
-  userAgent String
-  conuntry   String
+  userAgent String?
+  country   String?
 
   clickedAt DateTime @default(now())
 }
