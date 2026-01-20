@@ -52,7 +52,10 @@ export const getUrlDetails = async (req: Request, res: Response) => {
         const { shortCode } = req.params;
 
         const urlRecord = await prisma.url.findUnique({
-            where: { shortCode }
+            where: { shortCode },
+            include: {
+                clickLogs: true,
+            },
         });
 
         if (!urlRecord) {
@@ -73,7 +76,11 @@ export const getUrlDetails = async (req: Request, res: Response) => {
 
 export const getAllUrls = async (req: Request, res: Response) => {
     try {
-        const urls = await prisma.url.findMany();
+        const urls = await prisma.url.findMany({
+            include: {
+                clickLogs: true,
+            },
+        });
 
         if (urls.length === 0) {
             res.status(404).json({ message: "No URLs found" });
