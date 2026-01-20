@@ -3,7 +3,10 @@ import { prisma } from "../config/db";
 
 export const createClickLog = async (req: Request, res: Response) => {
     try {
-        const { urlShortCode, country,ip, userAgent } = req.body;
+        
+        const userAgent= req.headers['user-agent'] || '';
+        const { urlShortCode, country,ip } = req.body;
+
 
         console.log(`urlShortCode: ${urlShortCode}, ip: ${ip}, userAgent: ${userAgent}, country: ${country}`);
         
@@ -16,11 +19,24 @@ export const createClickLog = async (req: Request, res: Response) => {
             return;
         }
 
+        const duplicateClick = await prisma.click.findFirst({
+            where: {
+                urlId: Url.id,
+                ip: ip,
+                userAgent: userAgent
+            }
+
+        });
+
+        if (duplicateClick) {
+            res.status(200).json(duplicateClick);
+            return;
+        }
         const clickLog = await prisma.click.create({
             data: {
                 urlId: Url.id,
-                ip,
-                userAgent,
+                ip: ip,
+                userAgent: userAgent || 'Unknown',
                 country,
             },
         });
