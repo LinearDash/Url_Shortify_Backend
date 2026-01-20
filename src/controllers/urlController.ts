@@ -64,12 +64,12 @@ export const getUrlDetails = async (req: Request, res: Response) => {
         }
 
         res.status(200).json({
-            message: "Original URL retrieved successfully",
+            message: "URL Detail retrieved successfully",
             data: urlRecord,
         });
 
     } catch (error) {
-        console.error("Error retrieving original URL:", error);
+        console.error("Error retrieving URL Detail:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
