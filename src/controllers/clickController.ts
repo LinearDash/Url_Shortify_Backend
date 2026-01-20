@@ -3,14 +3,22 @@ import { prisma } from "../config/db";
 
 export const createClickLog = async (req: Request, res: Response) => {
     try {
-        const { urlId, ip, userAgent, country } = req.body;
+        const { urlShortCode, country,ip, userAgent } = req.body;
 
-        console.log(`urlId: ${urlId}, ip: ${ip}, userAgent: ${userAgent}, country: ${country}`);
+        console.log(`urlShortCode: ${urlShortCode}, ip: ${ip}, userAgent: ${userAgent}, country: ${country}`);
         
+        const Url = await prisma.url.findUnique({
+            where: { shortCode: urlShortCode }
+        });
+
+        if (!Url) {
+            res.status(404).json({ message: "URL not found" });
+            return;
+        }
 
         const clickLog = await prisma.click.create({
             data: {
-                urlId,
+                urlId: Url.id,
                 ip,
                 userAgent,
                 country,
