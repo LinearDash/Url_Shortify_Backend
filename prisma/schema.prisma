@@ -31,7 +31,7 @@ model Url {
   originalUrl String
   shortCode  String   @unique
 
-  owner User @relation(fields: [ownerId], references: [id],onDelete: Cascade)
+  owner User? @relation(fields: [ownerId], references: [id],onDelete: Cascade)
   ownerId String
 
   createdAt  DateTime @default(now())
