@@ -3,6 +3,11 @@ import{ prisma } from "./config/db";
 import cors from "cors";
 import urlRouter from "./routers/urlRouters";
 import clickRouter from "./routers/clickRouters";
+import dotenv from "dotenv";
+import authRouter from "./routers/authRouters";
+import passport from "./config/passport";
+
+dotenv.config();
 
 
 const app = express();
@@ -11,6 +16,10 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+app.use(passport.initialize());
+
+
+app.use("/api/auth", authRouter);
 app.use("/api/url", urlRouter);
 app.use("/api/click", clickRouter);
 
