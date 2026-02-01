@@ -18,7 +18,8 @@ router.get('/google/callback',
             {
                 id: user.id,
                 email: user.email,
-                name: user.name
+                name: user.name,
+                profilePicture: user.avatarUrl
             },
             process.env.JWT_SECRET!,
             { expiresIn: '7d' }

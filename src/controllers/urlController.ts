@@ -7,6 +7,9 @@ export const createShortUrl = async (req: Request, res: Response) => {
     try {
         const validation = createShortUrlSchema.safeParse(req.body);
 
+        console.log(validation);
+        
+
         if (!validation.success) {
             res.status(400).json({ 
                 message: "Validation error", 
