@@ -20,14 +20,21 @@ passport.use(
                     user = await prisma.user.create({
                         data: {
                             googleId: profile.id,
-                            email: profile.emails ? profile.emails[0].value : '',
+                            email: profile.emails ? profile.emails[0]?.value : '' as string,
                             name: profile.displayName,
-                            avatarUrl: profile.photos ? profile.photos[0].value : '',
+                            avatarUrl: profile.photos ? profile.photos[0]?.value : '',
                         },
                     });
                 }
+
+                const userPayload = {
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    avatarUrl: user.avatarUrl,
+                };
                 
-                return done(null, user);
+                return done(null, userPayload);
             } catch (error) {
                 return done(error as Error, undefined);
                 
