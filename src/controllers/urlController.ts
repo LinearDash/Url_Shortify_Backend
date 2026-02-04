@@ -6,10 +6,7 @@ import { prisma } from "../config/db";
 export const createShortUrl = async (req: Request, res: Response) => {
     try {
         const validation = createShortUrlSchema.safeParse(req.body);
-
-        console.log(validation);
         
-
         if (!validation.success) {
             res.status(400).json({ 
                 message: "Validation error", 
@@ -19,6 +16,17 @@ export const createShortUrl = async (req: Request, res: Response) => {
         }
 
         const { originalUrl } = validation.data;
+        const ownerId = req.user!.id;
+
+        const user = await prisma.user.findUnique({
+            where: { id: ownerId }
+        });
+
+        if (!user) {
+            res.status(404).json({ message: "User not found" });
+            return;
+        }
+
         
         let shortCode = generateShortCode();
         let findUrl = await prisma.url.findUnique({
@@ -36,6 +44,7 @@ export const createShortUrl = async (req: Request, res: Response) => {
             data: {
                 originalUrl,
                 shortCode,
+                ownerId,
             },
         });
 
@@ -96,6 +105,37 @@ export const getAllUrls = async (req: Request, res: Response) => {
         });
     } catch (error) {
         console.error("Error retrieving URLs:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+}
+
+export const getMyUrls = async (req: Request, res: Response) => {
+    try {
+        const ownerId = req.user!.id;    
+               
+        const urls = await prisma.url.findMany({
+            where: {
+                ownerId,
+            },
+            include: {
+                clickLogs: true,
+            },
+        });
+
+        // console.log(urls);
+        
+
+        if (urls.length === 0) {
+            res.status(404).json({ message: "No URLs found for this user" });
+            return;
+        }
+
+        res.status(200).json({
+            message: "User's URLs retrieved successfully",
+            data: urls,
+        });
+    } catch (error) {
+        console.error("Error retrieving user's URLs:", error);
         res.status(500).json({ message: "Internal server error" });
     }
 }
