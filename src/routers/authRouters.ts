@@ -11,7 +11,7 @@ router.get('/google',passport.authenticate('google',{
 }))
 
 router.get('/google/callback',
-    passport.authenticate('google',{ session:false, failureRedirect: '/login' } ),
+    passport.authenticate('google',{ session:false, failureRedirect: '/' } ),
     (req,res) => {
         const user = req.user as any;
         const token = jwt.sign(
